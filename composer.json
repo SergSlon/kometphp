@@ -23,8 +23,8 @@
     
     "suggest": {},
     "config": {
-        "bin-dir": "src/bin",
-        "vendor-dir": "src/vendor"
+        "bin-dir": "bin",
+        "vendor-dir": "src/system/vendor"
     },
     "autoload": {
         "psr-0": {
