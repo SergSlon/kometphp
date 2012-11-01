@@ -5,10 +5,10 @@ curl -s https://getcomposer.org/installer | php
 php composer.phar install
 
 # checkout a branch
-cd src/vendor/kometphp/core
+cd src/system/vendor/kometphp/core
 git checkout master
 
-cd ../../../../
+cd ../../../../../
 rm -f composer.phar
 
 if [ ! -d "src/public" ]; then
@@ -19,9 +19,9 @@ if [ ! -d "src/public" ]; then
     mkdir public
     chmod 0755 public
 #    rm -rf public/.git public/index.php public/.gitignore public/.gitattributes
-    cp vendor/kometphp/core/index.default.php public/index.php
+    cp system/vendor/kometphp/core/index.default.php public/index.php
 fi
 
-cp vendor/kometphp/core/install.php install.php
+cp system/vendor/kometphp/core/install.php install.php
 
 echo "\033[1;32mKometPHP has been installed successfully\033[m"
