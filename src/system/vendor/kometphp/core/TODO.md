@@ -1,4 +1,0 @@
-- Logger: Listen to channels
-- Single request / response / router per app instance
-- Active app instance switch
-- ORM traits (timestampable, etc)
