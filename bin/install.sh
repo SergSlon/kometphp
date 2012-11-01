@@ -14,11 +14,10 @@ rm -f composer.phar
 if [ ! -d "src/public" ]; then
 # install Komet assets and bootstrap file
     cd src
-#    git clone https://github.com/kometphp/assets.git
-#    mv assets public
-    mkdir public
+    git clone https://github.com/kometphp/assets.git
+    mv assets public
     chmod 0755 public
-#    rm -rf public/.git public/index.php public/.gitignore public/.gitattributes
+    rm -rf public/.git public/index.php public/.gitignore public/.gitattributes
     cp system/vendor/kometphp/core/index.default.php public/index.php
 fi
 
