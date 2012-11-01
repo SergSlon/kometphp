@@ -1,0 +1,34 @@
+{
+    "name": "kometphp/core",
+    "type": "framework",
+    "description": "KometPHP framework core package",
+    "keywords": ["framework", "hmvc", "mvc", "kometphp", "komet", "php5.4"],
+    "homepage": "http://github.com/kometphp/core",
+    "license":["GPL-2.0", "MIT"],
+    "authors": [
+        {
+            "name": "Javier Aguilar",
+            "email": "xaguilars@gmail.com",
+            "homepage": "http://github.com/xaguilars",
+            "role": "Developer"
+        }
+    ],
+    
+    "minimum-stability": "dev",
+    
+    "require": {
+        "php": ">=5.4.0"
+    },
+    
+    "suggest": {
+        "swiftmailer/swiftmailer": "Swiftmailer, free feature-rich PHP mailer",
+        "twig/twig": "Twig, the flexible, fast, and secure template language for PHP",
+        "twig/extensions": "Common additional features for Twig that do not directly belong in core"
+    },
+    
+    "autoload": {
+        "psr-0": {
+            "Komet": "classes/"
+        }
+    }
+}

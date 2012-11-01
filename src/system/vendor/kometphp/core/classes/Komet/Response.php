@@ -1,0 +1,481 @@
+<?php
+
+/**
+ * Part of the KometPHP Framework
+ * 
+ * @package Komet
+ * @author Javier Aguilar
+ * @license GPL License
+ * @license MIT License
+ */
+
+namespace Komet;
+
+/**
+ * Encapsulates the server response
+ * 
+ * @package Komet
+ * @author Javier Aguilar
+ * @license GPL License
+ * @license MIT License
+ */
+class Response
+{
+
+    /**
+     * Current status code
+     * @var int HTTP status code
+     */
+    protected $status;
+
+    /**
+     * List of HTTP headers to be sent
+     * @var array Key-value array of HTTP response headers
+     */
+    protected $headers;
+
+    /**
+     * HTTP response body
+     * @var string HTTP response body
+     */
+    protected $body;
+
+    /**
+     * HTTP response length
+     * @var int Length of HTTP response body
+     */
+    protected $length;
+
+    /**
+     * Status code messages
+     * @var array HTTP response codes and messages
+     */
+    protected static $messages = array(
+        //Informational 1xx
+        100 => '100 Continue',
+        101 => '101 Switching Protocols',
+        //Successful 2xx
+        200 => '200 OK',
+        201 => '201 Created',
+        202 => '202 Accepted',
+        203 => '203 Non-Authoritative Information',
+        204 => '204 No Content',
+        205 => '205 Reset Content',
+        206 => '206 Partial Content',
+        //Redirection 3xx
+        300 => '300 Multiple Choices',
+        301 => '301 Moved Permanently',
+        302 => '302 Found',
+        303 => '303 See Other',
+        304 => '304 Not Modified',
+        305 => '305 Use Proxy',
+        306 => '306 (Unused)',
+        307 => '307 Temporary Redirect',
+        //Client Error 4xx
+        400 => '400 Bad Request',
+        401 => '401 Unauthorized',
+        402 => '402 Payment Required',
+        403 => '403 Forbidden',
+        404 => '404 Not Found',
+        405 => '405 Method Not Allowed',
+        406 => '406 Not Acceptable',
+        407 => '407 Proxy Authentication Required',
+        408 => '408 Request Timeout',
+        409 => '409 Conflict',
+        410 => '410 Gone',
+        411 => '411 Length Required',
+        412 => '412 Precondition Failed',
+        413 => '413 Request Entity Too Large',
+        414 => '414 Request-URI Too Long',
+        415 => '415 Unsupported Media Type',
+        416 => '416 Requested Range Not Satisfiable',
+        417 => '417 Expectation Failed',
+        422 => '422 Unprocessable Entity',
+        423 => '423 Locked',
+        //Server Error 5xx
+        500 => '500 Internal Server Error',
+        501 => '501 Not Implemented',
+        502 => '502 Bad Gateway',
+        503 => '503 Service Unavailable',
+        504 => '504 Gateway Timeout',
+        505 => '505 HTTP Version Not Supported'
+    );
+
+    /**
+     * Request method
+     * @var string 
+     */
+    protected $requestMethod;
+
+    /**
+     * Constructor
+     * @param   string    $requestMethod       The HTTP request method
+     * @param   string    $body       The HTTP response body
+     * @param   int       $status     The HTTP response status
+     * @param   string    $contentType     The HTTP response content type
+     * @param   array     $headers    The HTTP response headers
+     */
+    public function __construct($requestMethod = "GET", $body = '', $status = 200, $contentType = "text/plain", $headers = array())
+    {
+        $this->requestMethod = strtoupper($requestMethod);
+        $this->headers = $headers;
+        $this->status($status);
+        $this->contentType($contentType);
+        $this->body($body);
+    }
+
+    /**
+     * Get and set header
+     * @param   string          $name   Header name
+     * @param   string|null     $value  Header value. If null, unsets that header.
+     * @return  string|null                  Header value
+     */
+    public function header($name = null, $value = null)
+    {
+        if (empty($name)) {
+            return $this->headers;
+        }
+        $name = str_replace(" ", "-", ucwords(str_replace("-", " ", strtolower($name))));
+        if ($value !== null) {
+            if ($value === true)
+                $value = "true";
+            elseif ($value === false)
+                $value = "false";
+
+            $this->headers[$name] = $value;
+        }else {
+            if(func_num_args() > 1){
+                if (isset($this->headers[$name]))
+                    unset($this->headers[$name]);
+            }
+        }
+        return isset($this->headers[$name]) ? $this->headers[$name] : null;
+    }
+
+    /**
+     * Get / Set an Access-Control-* header
+     * @param string $name Some possible values:
+     * 
+     * <b>Allow-Origin:</b> The origin parameter specifies a URI that may access the resource. 
+     * The browser must enforce this.  For requests without credentials, the server may
+     * specify "*" as a wildcard, thereby allowing any origin to access the resource.
+     * 
+     * <b>Expose-Headers:</b> This header lets a server whitelist headers
+     * that browsers are allowed to access. Multiple values are separated by comma.
+     * 
+     * <b>Max-Age:</b> Indicates the number of seconds the results can be cached.
+     * 
+     * <b>Allow-Credentials:</b> Indicates whether or not the response to the request
+     * can be exposed when the credentials flag is true. Possible values: true or false
+     * 
+     * <b>Allow-Methods:</b> Specifies the method or methods allowed for accessing the resource. 
+     * 
+     * <b>Allow-Headers:</b> Used when issuing a preflight request to let the server know
+     * what HTTP headers will be used when the actual request is made.
+     *  Multiple values are separated by comma.
+     * 
+     * @param string $value The value of the header
+     */
+    public function accessControl($name, $value = null)
+    {
+        return $this->header("Access-Control-" . $name, $value);
+    }
+
+    /**
+     * Get and set body
+     * @param   string|null  $body   Content of HTTP response body
+     * @return  string
+     */
+    public function body($body = null)
+    {
+        if (func_num_args() > 0) {
+            $this->body = $body;
+            $this->length(strlen($body));
+        }
+        return $this->body;
+    }
+
+    /**
+     * Get and set length
+     * @param   int|null     $length
+     * @return  int
+     */
+    public function length($length = null)
+    {
+        if (func_num_args() > 0) {
+            $this->length = (int) $length;
+            $this->header("Content-Length", $this->length);
+        }
+        return $this->length;
+    }
+
+    /**
+     * Get and set Content-Type header
+     * @param   string     $contentType The new value
+     * @return  string
+     */
+    public function contentType($contentType = null)
+    {
+        if (func_num_args() > 0) {
+            $this->header("Content-Type", $contentType);
+        }
+        return $this->header("Content-Type");
+    }
+
+    /**
+     * Get and set status
+     * @param   int|null     $status
+     * @param   string       $httpVersion Defaults to 1.1
+     * @return  int
+     */
+    public function status($status = null, $httpVersion = "1.1")
+    {
+        if (func_num_args() > 0) {
+            if (!in_array(intval($status), array_keys(self::$messages))) {
+                throw new \InvalidArgumentException('Cannot set Response status.
+                    Provided status code "' . $status . '" is not a valid HTTP response code.');
+            }
+            $this->status = (int) $status;
+            if (strpos(PHP_SAPI, 'cgi') !== false) {
+                //Send Status header if running with fastcgi
+                $this->header("Status", $this->status);
+            } else {
+                $this->header("HTTP/" . $httpVersion, $this->getStatusMessage());
+            }
+        }
+        return $this->status;
+    }
+
+    /**
+     * Get message for HTTP status code
+     * @param   int  $status The status code (optional)
+     * @return string|null
+     */
+    public function getStatusMessage($status = null)
+    {
+        if (empty($status))
+            $status = $this->status;
+        return isset(self::$messages[$status]) ? self::$messages[$status] : null;
+    }
+
+    /**
+     * Redirect
+     *
+     * This method prepares this response to return an HTTP Redirect response
+     * to the HTTP client.
+     *
+     * @param   string  $url        The redirect destination
+     * @param   int     $status     The redirect HTTP status code
+     */
+    public function redirect($url, $status = 302)
+    {
+        $this->status($status);
+        $this->header('Location', $url);
+    }
+
+    public function sendHeaders()
+    {
+        \Komet\K::app()->trigger("response.before_sendheaders", $this->headers);
+        foreach ($this->headers as $k => $v) {
+            header($k . ': ' . $v, true);
+        }
+    }
+
+    /**
+     *
+     * @param boolean $sendHeaders
+     * @param boolean $cleanOb Clean current output buffer ?
+     * @return string if $cleanOb equals true, returns the output buffer before 
+     *  printing body (if $cleanOb equals true
+     */
+    public function sendBody($sendHeaders = true, $cleanOb = true)
+    {
+        if (!$this->hasContent()) {
+            if (isset($this->headers['Content-Type']))
+                unset($this->headers['Content-Type']);
+            if (isset($this->headers['Content-Length']))
+                unset($this->headers['Content-Length']);
+        }
+
+        if ($sendHeaders)
+            $this->sendHeaders();
+
+        $ob = $cleanOb ? (ob_get_level() ? ob_get_clean() : null) : null;
+
+
+        \Komet\K::app()->trigger("response.before_sendbody", $this);
+
+        if ($this->canHaveBody() && ($this->hasContent())) {
+            print $this->body;
+        }
+
+        return $ob;
+    }
+
+    public function __toString()
+    {
+        return $this->body;
+    }
+
+    /**
+     * Can this HTTP response have a body?
+     * @return bool
+     */
+    public function canHaveBody()
+    {
+        return ( $this->status < 100 || $this->status >= 200 ) &&
+                ($this->status != 204) && ($this->status != 304) &&
+                ($this->requestMethod != "HEAD");
+    }
+
+    /**
+     * Helpers: Empty?
+     * @return bool
+     */
+    public function hasContent()
+    {
+        return !in_array($this->status, array(201, 204, 304)) && (strlen($this->body) > 0);
+    }
+
+    /**
+     * Helpers: Informational?
+     * @return bool
+     */
+    public function isInformational()
+    {
+        return $this->status >= 100 && $this->status < 200;
+    }
+
+    /**
+     * Helpers: OK?
+     * @return bool
+     */
+    public function isOk()
+    {
+        return $this->status === 200;
+    }
+
+    /**
+     * Helpers: Successful?
+     * @return bool
+     */
+    public function isSuccessful()
+    {
+        return $this->status >= 200 && $this->status < 300;
+    }
+
+    /**
+     * Helpers: Redirect?
+     * @return bool
+     */
+    public function isRedirect()
+    {
+        return in_array($this->status, array(301, 302, 303, 307));
+    }
+
+    /**
+     * Helpers: Redirection?
+     * @return bool
+     */
+    public function isRedirection()
+    {
+        return $this->status >= 300 && $this->status < 400;
+    }
+
+    /**
+     * Helpers: Forbidden?
+     * @return bool
+     */
+    public function isForbidden()
+    {
+        return $this->status === 403;
+    }
+
+    /**
+     * Helpers: Not Found?
+     * @return bool
+     */
+    public function isNotFound()
+    {
+        return $this->status === 404;
+    }
+
+    /**
+     * Helpers: Client error?
+     * @return bool
+     */
+    public function isClientError()
+    {
+        return $this->status >= 400 && $this->status < 500;
+    }
+
+    /**
+     * Helpers: Server Error?
+     * @return bool
+     */
+    public function isServerError()
+    {
+        return $this->status >= 500 && $this->status < 600;
+    }
+
+    /**
+     * Promts the user to download a file
+     * 
+     * @param string $file
+     * @param string $contentType
+     * @param string $rename
+     * @todo sendDownload: Improve performance using fread buffer and sending each chunk of bytes. See http://php.net/manual/en/function.fread.php
+     * @return boolean
+     */
+    public static function sendDownload($file, $contentType = null, $rename = null)
+    {
+        if (ob_get_length()) {
+            ob_end_clean();
+        }
+        if (!is_readable($file)) {
+            return false;
+        } else {
+            $contentType = !(empty($contentType)) ? $contentType : static::getMimetype($file);
+            header('Content-Description: File Transfer');
+            header('Content-Type: ' . $contentType);
+            header('Content-Disposition: attachment; filename=' . ($rename ? str_replace(" ", "_", trim($rename, " \n\r\t")) : basename($file)));
+            header('Content-Transfer-Encoding: binary');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($file));
+            ob_clean();
+            flush();
+            readfile($file);
+            exit;
+        }
+    }
+
+    /**
+     * 
+     * @param string $binaryContent
+     * @param string $filename
+     * @param string $contentType
+     * 
+     * @todo sendDownloadRaw: Improve performance
+     */
+    public static function sendDownloadRaw($binaryContent, $filename = "untitled", $contentType = "")
+    {
+        if (ob_get_length()) {
+            ob_end_clean();
+        }
+        header('Content-Description: File Transfer');
+        header('Content-Type: ' . $contentType);
+        header('Content-Disposition: attachment; filename=' . $filename);
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Pragma: public');
+        header('Content-Length: ' . strlen($binaryContent));
+        ob_clean();
+        flush();
+        echo $binaryContent;
+        exit;
+    }
+
+}

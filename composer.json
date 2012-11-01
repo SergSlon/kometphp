@@ -1,0 +1,34 @@
+{
+    "name": "kometphp/kometphp",
+    "type": "framework",
+    "description": "Lightweight HMVC Framework for PHP 5.4",
+    "keywords": ["framework", "hmvc", "mvc", "kometphp", "komet", "php5.4"],
+    "homepage": "http://github.com/kometphp/kometphp",
+    "license":["GPL-2.0", "MIT"],
+    "authors": [
+        {
+            "name": "Javier Aguilar",
+            "email": "xaguilars@gmail.com",
+            "homepage": "http://github.com/xaguilars",
+            "role": "Developer"
+        }
+    ],
+    
+    "minimum-stability": "dev",
+    
+    "require": {
+        "php": ">=5.4.0",
+        "kometphp/core": "1.0.0-alpha4"
+    },
+    
+    "suggest": {},
+    "config": {
+        "bin-dir": "src/bin",
+        "vendor-dir": "src/vendor"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "src/modules/main/classes/"
+        }
+    }
+}
