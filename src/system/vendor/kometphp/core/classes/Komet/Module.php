@@ -62,6 +62,7 @@ class Module
                 && !empty($config["path"])) ?
                         (\Komet\K::app()->path("root") . trim($config["path"], DIRECTORY_SEPARATOR) .
                         DIRECTORY_SEPARATOR) : (\Komet\K::app()->path("modules") . $name . DIRECTORY_SEPARATOR));
+  
         if (!is_dir($path)) {
             \Komet\K::app()->logger->critical("Module not found at path: " . $path);
         }

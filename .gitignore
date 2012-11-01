@@ -14,11 +14,11 @@ Thumbs.db
 ideas.txt
 *.idea
 /nbproject/
-/src/vendor/
+/src/system/vendor/
 /src/public/
 composer.lock
 *_1.php
 *_2.php
 *_3.php
-src/check.php
+src/install.php
 composer.phar

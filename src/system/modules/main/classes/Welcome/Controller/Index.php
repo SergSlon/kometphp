@@ -24,12 +24,10 @@ class Controller_Index extends \Komet\HMVC\AbstractController
         $this->response->contentType("text/html");
         $this->title = "KometPHP Framework";
 
-
-        \Komet\K::logger()->warning("this is a warn");
-        \Komet\K::logger()->error("this is an error");
-        \Komet\K::logger()->debug("this is a debug");
         \Komet\K::logger()->debug("this is a debug");
         \Komet\K::logger()->info("this is an info");
+        \Komet\K::logger()->warning("this is a warn");
+        \Komet\K::logger()->error("this is an error");
         \Komet\K::logger()->critical("this is a critical");
     }
 

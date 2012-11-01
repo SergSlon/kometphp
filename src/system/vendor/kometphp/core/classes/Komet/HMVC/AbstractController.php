@@ -60,7 +60,11 @@ abstract class AbstractController extends \Komet\Object
     public function actionHandle()
     {
         $this->response->status(404);
-        $this->response->body('404 NOT FOUND');
+        if(\Komet\Str::isWebFile($this->router->request()->uri)){
+            $this->response->body('');
+        }else{
+            $this->response->body('404 NOT FOUND');
+        }
         return $this->response;
     }
 
