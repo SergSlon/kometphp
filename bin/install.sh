@@ -21,6 +21,4 @@ if [ ! -d "src/public" ]; then
     cp system/vendor/kometphp/core/index.default.php public/index.php
 fi
 
-cp system/vendor/kometphp/core/install.php install.php
-
 echo "\033[1;32mKometPHP has been installed successfully\033[m"
