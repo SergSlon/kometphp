@@ -65,6 +65,8 @@
                             </a></h1><br />
                         <p>a lightweight RESTFul and HMVC application framework for PHP</p><br />
                         <a target="_blank" href="http://github.com/kometphp/kometphp/" class="btn btn-inverse"><i class="icon-github"></i> View project on Github</a>
+                        <br /><br />
+                        <a href="<?php echo K::url("mvc") ?>test/" class="btn"><i class=""></i> Test Logger</a>
                         <a href="<?php echo K::url("mvc") ?>say/?text=Hello another world!" class="btn"><i class=""></i> Test Demo module</a>
                     </div>
                     <?php endif; ?>

@@ -16,9 +16,7 @@ a lightweight RESTFul and HMVC application framework for PHP
     git clone https://github.com/kometphp/kometphp.git && cd kometphp && chmod +x bin/install.sh && ./bin/install.sh
 ```
 
-2. Navigate to the project URL and pass all the environment tests
-
-3. If everything is ok, you can delete the src/install.php file.
+2. Navigate to the project URL, pass all the environment tests and refresh the page
 
 ## Standards
 * Strict Standards, [PSR-0](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md), [PSR-1](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md) and [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) compatibility
@@ -36,4 +34,4 @@ a lightweight RESTFul and HMVC application framework for PHP
 * Classes for CLI, Auth, ...
 
 ## Credits
-* To Slim, Kohana, Symfony2 and Fuelphp frameworks for inspiring me,<br> and for some ideas I've picked from them.
+* To Slim, Kohana, Symfony2 and Fuelphp frameworks for inspiring me, and for some ideas I've picked from them.

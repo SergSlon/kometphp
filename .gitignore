@@ -15,6 +15,7 @@ ideas.txt
 *.idea
 /nbproject/
 /src/system/vendor/
+/src/system/app/data/
 /src/public/
 composer.lock
 *_1.php

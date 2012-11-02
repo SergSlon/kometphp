@@ -23,7 +23,11 @@ class Controller_Say extends \Welcome\Controller_Index
         $this->title = "Say | KometPHP Framework";
         $this->text = \Komet\K::get("text", null, "Hello World!");
         
-        return $this->render(array("master_top.php", "index.php", "master_bottom.php"), "null", "demo");
+        // Flash message for the main module:
+        \K::flash()->write("<b>You previously said:</b> ".$this->text, "info");
+        
+        return $this->render(array(\K::module("main")->themePath()."master_top.php", 
+            "index.php", \K::module("main")->themePath()."master_bottom.php"), null, "demo");
     }
 
 }

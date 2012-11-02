@@ -23,12 +23,6 @@ class Controller_Index extends \Komet\HMVC\AbstractController
         $this->assetsVersion = 0;
         $this->response->contentType("text/html");
         $this->title = "KometPHP Framework";
-
-        \Komet\K::logger()->debug("this is a debug");
-        \Komet\K::logger()->info("this is an info");
-        \Komet\K::logger()->warning("this is a warn");
-        \Komet\K::logger()->error("this is an error");
-        \Komet\K::logger()->critical("this is a critical");
     }
 
     public function actionIndex()
@@ -39,19 +33,26 @@ class Controller_Index extends \Komet\HMVC\AbstractController
 
     public function actionGetTest() //This function is only accessible via GET method
     {
+
+        \Komet\K::logger()->debug("this is a debug");
+        \Komet\K::logger()->info("this is an info");
+        \Komet\K::logger()->warning("this is a warn");
+        \Komet\K::logger()->error("this is an error");
+        \Komet\K::logger()->critical("this is a critical");
+        
         $this->viewID = "test";
         $this->title = "TEST";
-        return $this->render(array("master_top.php", "index.php", "master_bottom.php"));
+        return $this->render(array("master_top.php", "test.php", "master_bottom.php"));
     }
 
     public function actionPostTest() //This function is only accessible via POST method
     {
         $this->viewID = "test";
         $this->title = "TEST POST";
-        return $this->render(array("master_top.php", "index.php", "master_bottom.php"));
+        return $this->render(array("master_top.php", "test.php", "master_bottom.php"));
     }
 
-    public function validateGetTest()
+    public function validatePostTest()
     { 
         //This function must invalidate the above function and turn it unaccessible
         return false;
