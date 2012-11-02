@@ -17,7 +17,7 @@ namespace Demo;
 class Controller_Say extends \Welcome\Controller_Index
 {
 
-    public function actionIndex()
+    public function __index()
     {
         $this->viewID = "demoModuleIndex";
         $this->title = "Say | KometPHP Framework";

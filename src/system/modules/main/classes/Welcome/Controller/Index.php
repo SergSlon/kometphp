@@ -25,13 +25,13 @@ class Controller_Index extends \Komet\HMVC\AbstractController
         $this->title = "KometPHP Framework";
     }
 
-    public function actionIndex()
+    public function __index()
     {
         $this->viewID = "index";
         return $this->render(array("master_top.php", "index.php", "master_bottom.php"));
     }
 
-    public function actionGetTest() //This function is only accessible via GET method
+    public function httpGetActionTest() //This function is only accessible via GET method
     {
 
         \Komet\K::logger()->debug("this is a debug");
@@ -45,20 +45,20 @@ class Controller_Index extends \Komet\HMVC\AbstractController
         return $this->render(array("master_top.php", "test.php", "master_bottom.php"));
     }
 
-    public function actionPostTest() //This function is only accessible via POST method
+    public function httpPostActionTest() //This function is only accessible via POST method
     {
         $this->viewID = "test";
         $this->title = "TEST POST";
         return $this->render(array("master_top.php", "test.php", "master_bottom.php"));
     }
 
-    public function validatePostTest()
+    public function validateHttpPostActionTest()
     { 
         //This function must invalidate the above function and turn it unaccessible
         return false;
     }
 
-    public function actionHandle()
+    public function __handle()
     {
         $this->response->status(404);
         $this->viewID = "error";
