@@ -14,7 +14,7 @@ namespace Welcome;
  * @license GPL License
  * @license MIT License
  */
-class Controller_Index extends \Komet\HMVC\AbstractController
+class Controller_Index extends \Komet\HMVC\Asset_Controller
 {
 
     public function __construct(\Komet\HMVC\Router $router)
