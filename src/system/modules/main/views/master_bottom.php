@@ -1,6 +1,6 @@
             </div><!-- #main -->
             <footer>
-                <div class="container" style="margin-bottom:40px">
+                <div class="container" style="margin-bottom:0px">
                     powered by KometPHP v<?php echo \Komet\VERSION; ?>
                 </div>
             </footer>

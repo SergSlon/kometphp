@@ -25,7 +25,7 @@
         
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo K::url("static") ?>assets/img/favicon.ico?v=<?php echo $assetsVersion ?>">
         
-        <?php 
+        <?php
             echo K::asset(array("styles.combined.css", "scripts_head.combined.js"), $assetsVersion);
         ?>
         <style>
@@ -53,6 +53,9 @@
                 font-size:12px;
             }
         </style>
+        <?php
+            echo K::asset()->bundle(array("test1.css","test2.css"));
+        ?>
     </head>
     <body>
         <div id="wrapper">
