@@ -1,7 +1,6 @@
 <?php
 // Config file for 'test' environment
-return array(
-    "display_errors" => true,
-    "index_file" => "",
-    "session_autostart" => false
-);
+$config = include "config_development.php";
+$config["profiler_enabled"]=false;
+
+return $config;
