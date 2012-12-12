@@ -10,13 +10,21 @@ a lightweight RESTFul and HMVC application framework for PHP
 * PHP 5.4.0+
 
 ## How to download and install
-1. Run this script in the terminal:
+1) Run this script in the terminal:
 
 ```
-    git clone https://github.com/kometphp/kometphp.git && cd kometphp && chmod +x bin/install.sh && ./bin/install.sh
+git clone https://github.com/kometphp/kometphp.git && cd kometphp
+chmod +x bin/install.sh && ./bin/install.sh
 ```
 
-2. Navigate to the project URL, pass all the environment tests and refresh the page
+Or this one to get the development branch
+
+```
+git clone https://github.com/kometphp/kometphp.git && cd kometphp && git checkout -t origin/develop
+chmod +x bin/install.sh && ./bin/install.sh
+```
+
+2) Navigate to the project URL, pass all the environment tests and refresh the page
 
 ## Standards
 * Strict Standards, [PSR-0](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md), [PSR-1](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md) and [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) compatibility
