@@ -6,13 +6,11 @@ php composer.phar install
 
 # checkout a branch
 cd src/system/vendor/kometphp/core
-git checkout master
 
 cd ../../../../../
-rm -f composer.phar
 
 if [ ! -d "src/public" ]; then
-# install Komet assets and bootstrap file
+# install Komet assets and index.php file
     cd src
     git clone https://github.com/kometphp/assets.git
     mv assets public
