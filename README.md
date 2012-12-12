@@ -16,6 +16,12 @@ a lightweight RESTFul and HMVC application framework for PHP
     git clone https://github.com/kometphp/kometphp.git && cd kometphp && chmod +x bin/install.sh && ./bin/install.sh
 ```
 
+Or this one to get the development branch
+
+```
+    git clone https://github.com/kometphp/kometphp.git && cd kometphp && git checkout develop && chmod +x bin/install.sh && ./bin/install.sh
+```
+
 2. Navigate to the project URL, pass all the environment tests and refresh the page
 
 ## Standards
