@@ -2,7 +2,7 @@
     "name": "kometphp/kometphp",
     "type": "framework",
     "description": "Lightweight HMVC Framework for PHP 5.4",
-    "keywords": ["framework", "hmvc", "mvc", "kometphp", "komet", "php5.4"],
+    "keywords": ["framework", "hmvc", "mvc", "kometphp", "komet"],
     "homepage": "http://github.com/kometphp/kometphp",
     "license":["GPL-2.0", "MIT"],
     "authors": [
@@ -18,7 +18,7 @@
     
     "require": {
         "php": ">=5.4.0",
-        "kometphp/core": "dev-master"
+        "kometphp/core": "dev-develop"
     },
     
     "suggest": {},
