@@ -2,7 +2,7 @@
 
 a lightweight RESTFul and HMVC application framework for PHP
 
-[![Build Status](https://secure.travis-ci.org/kometphp/kometphp.png)](http://travis-ci.org/kometphp/kometphp)
+<!-- [![Build Status](https://secure.travis-ci.org/kometphp/kometphp.png)](http://travis-ci.org/kometphp/kometphp) -->
 
 ## Minimum requirements
 
