@@ -13,13 +13,15 @@ a lightweight RESTFul and HMVC application framework for PHP
 1) Run this script in the terminal:
 
 ```
-git clone https://github.com/kometphp/kometphp.git && cd kometphp && chmod +x bin/install.sh && ./bin/install.sh
+git clone https://github.com/kometphp/kometphp.git && cd kometphp
+chmod +x bin/install.sh && ./bin/install.sh
 ```
 
 Or this one to get the development branch
 
 ```
-git clone https://github.com/kometphp/kometphp.git && cd kometphp && git checkout develop && chmod +x bin/install.sh && ./bin/install.sh
+git clone https://github.com/kometphp/kometphp.git && cd kometphp && git checkout -t origin/develop
+chmod +x bin/install.sh && ./bin/install.sh
 ```
 
 2) Navigate to the project URL, pass all the environment tests and refresh the page
